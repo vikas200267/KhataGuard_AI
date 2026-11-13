@@ -41,6 +41,8 @@ def create_case(client: TestClient) -> str:
 
 
 def upload_doc(client: TestClient, case_id: str, filename: str):
-    files = {"file": (filename, b"fake-pdf", "application/pdf")}
+    # Create valid PDF magic bytes + minimal content (20 bytes total)
+    pdf_content = b"%PDF-1.4\n%\xe2\xe3\xcf\xd3\n"  # Valid PDF header
+    files = {"file": (filename, pdf_content, "application/pdf")}
     response = client.post(f"/api/v1/cases/{case_id}/documents", files=files)
     assert response.status_code == 200

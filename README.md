@@ -5,7 +5,7 @@ Developed by **Team SwagCoders** for the **Google DeepMind × Google Cloud Start
 [![Backend](https://img.shields.io/badge/Backend-FastAPI-blue.svg)](#)
 [![Android](https://img.shields.io/badge/Android-Jetpack%20Compose%20%7C%20Material%203-blue.svg)](#)
 [![AI Engine](https://img.shields.io/badge/AI-Google%20Gemini-orange.svg)](#)
-[![Cloud Ready](https://img.shields.io/badge/Cloud-Google%20Cloud%20Run%20%7C%20Firebase-yellow.svg)](#)
+[![Cloud deployment](https://img.shields.io/badge/Cloud-deployment%20guidance-yellow.svg)](#)
 
 ---
 
@@ -52,7 +52,6 @@ Buyers often face costly disputes because of subtle discrepancies:
    │     └── ReportLab Platypus PDF Generator (Official verification checklist)
    │
    └── Security & Repository Layer
-         ├── In-Memory Thread-Safe Repository (Demo / Local)
          ├── In-memory local repository (active)
          └── Firebase/Firestore integration (not wired)
 ```
@@ -132,6 +131,8 @@ python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
 The interactive API documentation is available at `http://localhost:8000/docs` in development mode.
+
+To create the explicitly fictional PDF inputs used by the backend demo, run `python ../sample-data/synthetic-documents/generate_demo_documents.py` from the `backend` directory.
 
 ### Android Application Setup
 

@@ -1,16 +1,47 @@
 {
   "state": "Karnataka",
   "version": "v1",
-  "document_terms": {
-    "property_tax_record": "Khata",
-    "land_record": "RTC",
-    "registration_portal": "Kaveri"
+  "portals": {
+    "registration": "Kaveri 2.0",
+    "rural_land": "Bhoomi",
+    "gram_panchayat_property": "e-Swathu",
+    "urban_local_body": "e-Aasthi",
+    "bengaluru_municipal": "BBMP e-Khata"
   },
+  "document_terms": {
+    "conveyance_deed": "Sale Deed (Kraya Patra)",
+    "property_tax_record": "Khata Certificate / Khata Extract (A Khata / B Khata)",
+    "land_record": "RTC (Record of Rights, Tenancy and Crops / Pahani)",
+    "encumbrance_certificate": "Form 15 (Encumbrance) / Form 16 (Nil Encumbrance)",
+    "mutation_register": "Mutation Extract (MR)",
+    "survey_sketch": "Tippani / Akarband / Podi Sketch"
+  },
+  "required_documents": [
+    "sale_deed",
+    "khata_record"
+  ],
   "required_checks": [
     "survey_number_mismatch",
     "property_area_difference",
     "owner_name_variation",
-    "missing_required_fields"
+    "missing_owner",
+    "missing_required_fields",
+    "conflicting_property_identifiers",
+    "document_date_inconsistency"
   ],
+  "area_units_used": [
+    "sq_ft",
+    "sq_m",
+    "gunta",
+    "acre"
+  ],
+  "conversion_factors_to_sq_ft": {
+    "sq_ft": 1.0,
+    "sq_m": 10.7639,
+    "sq_yd": 9.0,
+    "gunta": 1089.0,
+    "acre": 43560.0
+  },
+  "disclaimer": "Karnataka State Adapter v1. Verified against statutory document types. Official verification through Kaveri 2.0, Bhoomi, or e-Swathu is recommended.",
   "validated": true
 }

@@ -15,6 +15,10 @@ class CaseRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
+    def list_cases(self, user_id: str) -> list[PropertyCase]:
+        raise NotImplementedError
+
+    @abstractmethod
     def delete_case(self, case_id: str, user_id: str) -> bool:
         raise NotImplementedError
 

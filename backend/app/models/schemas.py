@@ -36,15 +36,6 @@ class DocumentType(BaseModel):
     label: str
 
 
-class PropertyCase(BaseModel):
-    case_id: str
-    user_id: str
-    property_name: str
-    state: str
-    created_at: datetime
-    documents: list[DocumentRecord] = Field(default_factory=list)
-
-
 class DocumentRecord(BaseModel):
     document_id: str
     filename: str
@@ -53,6 +44,15 @@ class DocumentRecord(BaseModel):
     size_bytes: int
     source_uri: str
     uploaded_at: datetime
+
+
+class PropertyCase(BaseModel):
+    case_id: str
+    user_id: str
+    property_name: str
+    state: str
+    created_at: datetime
+    documents: list[DocumentRecord] = Field(default_factory=list)
 
 
 class ExtractedField(BaseModel):
@@ -130,3 +130,28 @@ class AreaValue(BaseModel):
         if v not in allowed:
             raise ValueError(f"Unsupported area unit: {v}")
         return v
+
+
+class GraphNode(BaseModel):
+    id: str
+    type: str
+    name: str | None = None
+    value: str | None = None
+    severity: str | None = None
+    document_type: str | None = None
+    metadata: dict[str, Any] = Field(default_factory=dict)
+
+
+class GraphEdge(BaseModel):
+    source: str = Field(alias="from")
+    target: str = Field(alias="to")
+    relation: str
+
+    model_config = {"populate_by_name": True}
+
+
+class PropertyIdentityGraph(BaseModel):
+    case_id: str
+    nodes: list[dict[str, Any]]
+    edges: list[dict[str, Any]]
+

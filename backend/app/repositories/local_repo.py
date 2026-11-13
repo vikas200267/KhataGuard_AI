@@ -26,6 +26,10 @@ class LocalCaseRepository(CaseRepository):
             return None
         return case
 
+    def list_cases(self, user_id: str) -> list[PropertyCase]:
+        with self._lock:
+            return [case for case in self._cases.values() if case.user_id == user_id]
+
     def delete_case(self, case_id: str, user_id: str) -> bool:
         with self._lock:
             case = self._cases.get(case_id)

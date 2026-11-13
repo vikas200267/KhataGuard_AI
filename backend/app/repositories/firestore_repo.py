@@ -14,6 +14,9 @@ class FirestoreCaseRepository(CaseRepository):
     def get_case(self, case_id: str, user_id: str) -> PropertyCase | None:
         raise NotImplementedError("Firestore repository wiring required for production deployment")
 
+    def list_cases(self, user_id: str) -> list[PropertyCase]:
+        raise NotImplementedError("Firestore repository wiring required for production deployment")
+
     def delete_case(self, case_id: str, user_id: str) -> bool:
         raise NotImplementedError("Firestore repository wiring required for production deployment")
 

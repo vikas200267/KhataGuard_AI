@@ -9,6 +9,7 @@
 
 - FastAPI health, state/document discovery, case CRUD, upload, analysis, findings, graph, and PDF report routes.
 - Credential-free demo extraction from synthetic fixtures. The demo reports are synthetic and do not verify official records.
+- Two synthetic PDF inputs can be generated locally; both are watermarked as fictional and not official records.
 - Deterministic area, survey, owner-name, date, identifier, and missing-field comparisons. The supplied 1,200 vs 1,080 sq. ft. fixture produces a 120 sq. ft. finding.
 - Property Identity Graph generation and PDF report generation.
 - Modular adapter configuration exists for Karnataka, Maharashtra, and Tamil Nadu. Karnataka checks are limited to the rules represented in its JSON configuration; the other two configurations are placeholders. No state adapter is represented as government-validated.

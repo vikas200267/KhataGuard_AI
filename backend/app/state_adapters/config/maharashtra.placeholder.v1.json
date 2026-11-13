@@ -1,11 +1,39 @@
 {
   "state": "Maharashtra",
   "version": "v1-placeholder",
-  "document_terms": {
-    "registration_portal": "NGDRS (placeholder mapping)",
-    "property_tax_record": "Property Card (placeholder)"
+  "portals": {
+    "registration": "IGR Maharashtra (SARITA / e-StepIn)",
+    "land_records": "Mahabhulekh (e-MahaBhumi)"
   },
-  "required_checks": ["survey_number_mismatch", "property_area_difference"],
-  "validated": false,
-  "note": "Placeholder adapter. Legal validation pending."
+  "document_terms": {
+    "conveyance_deed": "Sale Deed / Kharedi Khat",
+    "registration_summary": "Index II (Suchi 2)",
+    "rural_land_record": "7/12 Extract (Satbara Utara)",
+    "holding_record": "8A Extract",
+    "urban_property_card": "Property Card (Malmatta Patrak)",
+    "mutation_extract": "Ferfar (Form 6)"
+  },
+  "required_documents": [
+    "sale_deed",
+    "index_ii",
+    "property_card"
+  ],
+  "required_checks": [
+    "survey_number_mismatch",
+    "property_area_difference"
+  ],
+  "unsupported_checks": [
+    "na_conversion_order_verification",
+    "ulcra_clearance_verification",
+    "gunthewari_regularization_check"
+  ],
+  "area_units_used": [
+    "sq_m",
+    "sq_ft",
+    "guntha",
+    "acre",
+    "hectare"
+  ],
+  "note": "Placeholder adapter for Maharashtra. Basic property extraction and discrepancy checks enabled; advanced tenancy and urban land ceiling checks require official verification.",
+  "validated": false
 }

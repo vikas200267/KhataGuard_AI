@@ -1,11 +1,37 @@
 {
   "state": "Tamil Nadu",
   "version": "v1-placeholder",
-  "document_terms": {
-    "registration_portal": "TNREGINET (placeholder mapping)",
-    "land_record": "Patta/Chitta (placeholder)"
+  "portals": {
+    "registration": "TNREGINET",
+    "land_records": "Anytime Anywhere e-Services (eservices.tn.gov.in)"
   },
-  "required_checks": ["survey_number_mismatch", "missing_required_fields"],
-  "validated": false,
-  "note": "Placeholder adapter. Legal validation pending."
+  "document_terms": {
+    "conveyance_deed": "Sale Deed (Kraya Pathiram)",
+    "land_record": "Patta / Chitta Extract",
+    "urban_land_record": "Town Survey Land Register (TSLR) Extract",
+    "encumbrance_certificate": "Encumbrance Certificate (Villangam Sanrridhazh - EC)",
+    "field_measurement_book": "FMB Sketch"
+  },
+  "required_documents": [
+    "sale_deed",
+    "patta_chitta"
+  ],
+  "required_checks": [
+    "survey_number_mismatch",
+    "property_area_difference"
+  ],
+  "unsupported_checks": [
+    "panchami_land_verification",
+    "temple_hrce_clearance",
+    "inams_abolition_status"
+  ],
+  "area_units_used": [
+    "sq_ft",
+    "sq_m",
+    "cent",
+    "ground",
+    "acre"
+  ],
+  "note": "Placeholder adapter for Tamil Nadu. General extraction and area/survey checks supported; temple land and conditional allotment checks require official clearance.",
+  "validated": false
 }

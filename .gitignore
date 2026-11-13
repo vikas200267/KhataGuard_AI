@@ -1,17 +1,32 @@
 # Python
 __pycache__/
 *.py[cod]
+*$py.class
 *.pyo
 .venv/
 .pytest_cache/
 .coverage
+htmlcov/
 
-# Env
+# Environment and secrets
 .env
+.env.*
+!.env.example
+*.pem
+*.key
+*service-account*.json
+*credentials*.json
+google-services.json
+
+# Private property uploads & temp directories
+khataguard_uploads/
+tmp/
+/tmp/
 
 # Gradle / Android
 .gradle/
 build/
+app/build/
 .kts/
 .kotlinc/
 .kotlin/
@@ -24,15 +39,10 @@ captures/
 *.aab
 *.apk
 output-metadata.json
+*.jks
+*.keystore
 
 # Logs and OS
 *.log
 .DS_Store
-
-# Android secrets
-google-services.json
-*.jks
-*.keystore
-
-# Misc
-/tmp/
+Thumbs.db
