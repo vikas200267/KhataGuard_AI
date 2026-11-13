@@ -1,0 +1,30 @@
+{
+  "sale_deed": {
+    "document_type": "Sale Deed",
+    "state": "Karnataka",
+    "language": "English",
+    "owner_name": "Ravi Kumar",
+    "survey_number": "42/3",
+    "area_value": 1200,
+    "area_unit": "sq_ft",
+    "location": "Ward 11, Bengaluru",
+    "document_date": "2021-08-01",
+    "document_identifiers": ["SD-2021-9482"],
+    "boundary_description": "North: Road, South: Site 12",
+    "missing_or_unreadable_fields": []
+  },
+  "khata": {
+    "document_type": "Khata Record",
+    "state": "Karnataka",
+    "language": "Kannada",
+    "owner_name": "Ravi K.",
+    "survey_number": "42/3",
+    "area_value": 1080,
+    "area_unit": "sq_ft",
+    "location": "Ward 11, Bengaluru",
+    "document_date": "2022-02-13",
+    "document_identifiers": ["KHATA-3301"],
+    "boundary_description": null,
+    "missing_or_unreadable_fields": ["boundary_description"]
+  }
+}
