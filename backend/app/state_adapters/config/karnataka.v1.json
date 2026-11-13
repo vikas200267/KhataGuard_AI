@@ -1,0 +1,16 @@
+{
+  "state": "Karnataka",
+  "version": "v1",
+  "document_terms": {
+    "property_tax_record": "Khata",
+    "land_record": "RTC",
+    "registration_portal": "Kaveri"
+  },
+  "required_checks": [
+    "survey_number_mismatch",
+    "property_area_difference",
+    "owner_name_variation",
+    "missing_required_fields"
+  ],
+  "validated": true
+}

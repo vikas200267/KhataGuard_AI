@@ -1,0 +1,11 @@
+{
+  "state": "Maharashtra",
+  "version": "v1-placeholder",
+  "document_terms": {
+    "registration_portal": "NGDRS (placeholder mapping)",
+    "property_tax_record": "Property Card (placeholder)"
+  },
+  "required_checks": ["survey_number_mismatch", "property_area_difference"],
+  "validated": false,
+  "note": "Placeholder adapter. Legal validation pending."
+}

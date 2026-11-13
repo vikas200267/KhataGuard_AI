@@ -1,0 +1,14 @@
+{
+  "version": "v1",
+  "rules": [
+    {
+      "jurisdiction": "Karnataka",
+      "transaction_type": "sale",
+      "conditions": "residential_default",
+      "source_url": "https://kaverionline.karnataka.gov.in/",
+      "effective_date": "2026-01-01",
+      "verification_date": "2026-10-01",
+      "verified": false
+    }
+  ]
+}

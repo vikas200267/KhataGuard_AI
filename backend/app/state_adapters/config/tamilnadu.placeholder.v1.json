@@ -1,0 +1,11 @@
+{
+  "state": "Tamil Nadu",
+  "version": "v1-placeholder",
+  "document_terms": {
+    "registration_portal": "TNREGINET (placeholder mapping)",
+    "land_record": "Patta/Chitta (placeholder)"
+  },
+  "required_checks": ["survey_number_mismatch", "missing_required_fields"],
+  "validated": false,
+  "note": "Placeholder adapter. Legal validation pending."
+}
