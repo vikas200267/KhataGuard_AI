@@ -80,8 +80,8 @@ Buyers often face costly disputes because of subtle discrepancies:
 
 ### Google Cloud Infrastructure
 - **Deployment**: Google Cloud Run (Containerized via Docker)
-- **Database**: In-memory local repository; Firestore is not wired
-- **Authentication**: Demo bypass or developer test tokens; Firebase verification is not wired
+- **Database**: In-memory local repository by default; optional Firestore repository uses per-UID paths
+- **Authentication**: Demo bypass locally; non-demo mode verifies Firebase ID tokens (requires project credentials)
 - **Storage**: Local temporary files; Cloud Storage is not wired
 - **Configuration & Secrets**: Secret Manager / Pydantic Settings
 

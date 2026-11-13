@@ -3,7 +3,7 @@ from __future__ import annotations
 from collections import defaultdict
 from threading import Lock
 
-from app.models.schemas import AnalyzeResponse, ExtractionOutput, PropertyCase
+from app.models.schemas import AnalyzeResponse, DocumentRecord, ExtractionOutput, PropertyCase
 from app.repositories.base import CaseRepository
 
 
@@ -41,11 +41,13 @@ class LocalCaseRepository(CaseRepository):
             self._extractions.pop(case_id, None)
             return True
 
-    def add_document(self, case_id: str, user_id: str, document_id: str) -> None:
-        case = self.get_case(case_id, user_id)
-        if not case:
-            return
-        self._docs[case_id].append(document_id)
+    def add_document(self, case_id: str, user_id: str, document: DocumentRecord) -> None:
+        with self._lock:
+            case = self._cases.get(case_id)
+            if not case or case.user_id != user_id:
+                return
+            case.documents.append(document)
+            self._docs[case_id].append(document.document_id)
 
     def save_analysis(self, case_id: str, user_id: str, result: AnalyzeResponse) -> None:
         if self.get_case(case_id, user_id):

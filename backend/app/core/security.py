@@ -1,6 +1,7 @@
 from fastapi import Header, HTTPException, status
 
 from app.core.config import get_settings
+from app.core.firebase import get_firebase_app
 
 
 def get_current_user(authorization: str | None = Header(default=None)) -> str:
@@ -13,25 +14,34 @@ def get_current_user(authorization: str | None = Header(default=None)) -> str:
 
     token = authorization.removeprefix("Bearer ").strip()
     
-    # Validate token length to prevent DoS
+    # Bound work before passing the bearer value to the SDK.
     if len(token) > 4096:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Token too long")
 
-    # Production deployments should validate Firebase ID tokens using firebase-admin SDK.
-    # For local secured tests we accept deterministic token format.
-    if token.startswith("test-") and len(token) > 5 and len(token) < 100:
-        # Additional validation: only allow alphanumeric and dash
+    # Developer tokens are accepted only by local development servers.
+    if settings.app_env == "development" and token.startswith("test-") and 5 < len(token) < 100:
         username = token.removeprefix("test-")
         if not username.replace("-", "").replace("_", "").isalnum():
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid test token format")
         return username
 
-    # TODO: Implement Firebase ID token validation here for production:
-    # from firebase_admin import auth
-    # try:
-    #     decoded_token = auth.verify_id_token(token)
-    #     return decoded_token['uid']
-    # except Exception:
-    #     raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
+    try:
+        from firebase_admin import auth
+    except ImportError as exc:
+        raise HTTPException(status_code=503, detail="Firebase authentication is unavailable") from exc
 
-    raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
+    try:
+        firebase_app = get_firebase_app()
+    except Exception as exc:
+        # Do not log token values or credential details.
+        raise HTTPException(status_code=503, detail="Firebase authentication is not configured") from exc
+
+    try:
+        decoded_token = auth.verify_id_token(token, app=firebase_app, check_revoked=True)
+    except Exception as exc:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or expired token") from exc
+
+    uid = decoded_token.get("uid")
+    if not isinstance(uid, str) or not uid:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token subject")
+    return uid

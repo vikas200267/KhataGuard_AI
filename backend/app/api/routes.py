@@ -168,8 +168,7 @@ async def upload_document(
         source_uri=str(destination),
         uploaded_at=datetime.now(timezone.utc),
     )
-    case.documents.append(doc)
-    repo.add_document(case_id, user_id, document_id)
+    repo.add_document(case_id, user_id, doc)
     return doc
 
 

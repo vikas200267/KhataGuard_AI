@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 
-from app.models.schemas import AnalyzeResponse, ExtractionOutput, PropertyCase
+from app.models.schemas import AnalyzeResponse, DocumentRecord, ExtractionOutput, PropertyCase
 
 
 class CaseRepository(ABC):
@@ -23,7 +23,7 @@ class CaseRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def add_document(self, case_id: str, user_id: str, document_id: str) -> None:
+    def add_document(self, case_id: str, user_id: str, document: DocumentRecord) -> None:
         raise NotImplementedError
 
     @abstractmethod

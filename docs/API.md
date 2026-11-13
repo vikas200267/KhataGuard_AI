@@ -1,6 +1,6 @@
 # API specification (v1)
 
-Base path: `/api/v1`. Local/demo requests use `DEMO_MODE=true` and synthetic fixtures. When demo mode is disabled, this repository currently accepts only developer tokens in the form `Bearer test-<username>`; Firebase ID tokens are not yet verified.
+Base path: `/api/v1`. Local/demo requests use `DEMO_MODE=true` and synthetic fixtures. With demo mode disabled, send a Firebase Authentication ID token as `Authorization: Bearer <id-token>`. Tokens are verified by Firebase Admin with revocation checks. Development servers also accept `Bearer test-<username>` only when `APP_ENV=development`.
 
 | Method | Endpoint | Purpose |
 |---|---|---|

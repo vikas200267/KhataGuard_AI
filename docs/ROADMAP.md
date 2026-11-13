@@ -61,9 +61,9 @@ flowchart LR
 
 ### Phase 4: Cloud Deployment & Hardening (NEXT)
 - [ ] Deploy containerized FastAPI backend to **Google Cloud Run**.
-- [ ] Connect production **Cloud Firestore** for case persistence.
+- [x] Add Firestore repository code with per-UID case paths; live project verification remains.
 - [ ] Connect **Google Cloud Storage** for encrypted document uploads.
-- [ ] Enable **Firebase Authentication** ID token validation in `security.py`.
+- [x] Add Firebase Admin ID-token verification in `security.py`; live project verification remains.
 - [ ] Set up **Google Cloud Secret Manager** for API keys.
 
 ### Phase 5: National Expansion & Partnerships (FUTURE)

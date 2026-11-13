@@ -1,4 +1,5 @@
 from functools import lru_cache
+from pydantic import model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -20,6 +21,14 @@ class Settings(BaseSettings):
     
     # Maximum property name length
     max_property_name_length: int = 200
+
+    @model_validator(mode="after")
+    def validate_deployment_mode(self) -> "Settings":
+        if self.app_env.lower() == "production" and self.demo_mode:
+            raise ValueError("DEMO_MODE must be false when APP_ENV=production")
+        if self.use_firestore and not self.firebase_project_id:
+            raise ValueError("FIREBASE_PROJECT_ID is required when USE_FIRESTORE=true")
+        return self
 
 
 @lru_cache

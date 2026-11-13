@@ -5,8 +5,9 @@ The current application is a local/demo MVP. The controls below describe code th
 ## Authentication and data isolation
 
 - `DEMO_MODE=true` maps all requests to `demo-user` and is intended only for synthetic data.
-- With demo mode disabled, the backend accepts the repository's `test-<username>` development token format. It does **not** verify Firebase ID tokens. Do not expose this configuration publicly.
-- The in-memory repository filters case operations by `user_id`. This is not durable or a substitute for production tenant controls.
+- With demo mode disabled, Firebase Admin verifies ID tokens and checks revocation before using the token UID. `test-<username>` developer tokens work only when `APP_ENV=development`.
+- When `USE_FIRESTORE=true`, case documents are nested under `users/{uid}/cases/{case_id}`. This code path has not been smoke-tested against a live Firebase project.
+- The local repository filters case operations by `user_id` but is in-memory and not durable.
 
 ## Upload handling
 
@@ -23,4 +24,4 @@ The current application is a local/demo MVP. The controls below describe code th
 
 ## Production work required
 
-Before handling real property records in a public deployment, implement Firebase ID-token verification, Firestore/Storage tenant rules, private bucket access, deletion of cloud objects, rate limiting, request/body limits at the ingress, and least-privilege IAM. No government registry is queried by this application.
+Before handling real property records in a public deployment, configure Firebase credentials and Firestore, implement private Cloud Storage uploads and object deletion, add rate limiting and ingress body limits, and use least-privilege IAM. No government registry is queried by this application.

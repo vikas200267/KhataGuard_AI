@@ -1,6 +1,6 @@
 # KhataGuard AI — Implementation Status
 
-**Audited:** 2026-11-13  
+**Audited:** 2026-11-14  
 **Overall status:** Local demo MVP with a functioning Android build and FastAPI backend. Cloud deployment and production identity/storage integrations are not complete.
 
 ## Feature classification
@@ -20,14 +20,14 @@
 
 - **Gemini extraction:** Live mode now sends uploaded bytes (PDF/JPEG/PNG) to the configured Google GenAI model with JSON response mode, then validates the result with Pydantic. The default is `gemini-3.6-flash` and can be overridden with `GEMINI_MODEL`. No real API-key call has been made here. Page citations depend on the model and are not independently verified; the synthetic mock provider currently attaches a fixed page 1 reference.
 - **Backend agent workflow:** A deterministic Python orchestration pipeline and tools exist. Google ADK is not a dependency and the workflow is not an ADK runtime.
-- **Authentication:** Demo mode bypasses authentication. Non-demo requests accept only the local `test-...` developer token format; Firebase ID token verification is not implemented.
-- **Persistence and file storage:** Local repository is in-memory and uploads use the host's temporary directory. Firestore and Cloud Storage are not wired. Data and files are not durable across instance restarts.
+- **Authentication:** Non-demo requests verify Firebase ID tokens through Firebase Admin, including revocation checks. `test-...` developer tokens are accepted only when `APP_ENV=development`. Real Firebase credentials were not available for a live verification.
+- **Persistence and file storage:** A Firestore repository is wired behind `USE_FIRESTORE=true` and stores cases under each Firebase UID. Its integration was not smoke-tested against a live project. Uploads still use host temporary storage; Cloud Storage is not wired and files are not durable across instance restarts.
 - **Android:** Compose screens, ViewModels, routes, and Retrofit definitions exist. Firebase sign-in, robust upload flow, and complete live backend flow require further integration review.
 - **Logging and deletion:** Sensitive document content is not intentionally logged. Local deletion removes local files; cloud object deletion is not applicable until cloud storage is implemented.
 
 ### NOT IMPLEMENTED
 
-- Firestore repository, Firebase Authentication verification, Cloud Storage, and production user isolation through Firebase identities.
+- Cloud Storage upload/deletion and Firebase client sign-in in Android.
 - Native Google ADK agent orchestration.
 - Cloud Run deployment verification, Secret Manager wiring, and production IAM setup.
 - Validated multilingual OCR quality across Kannada, English, and other Indian languages. Gemini extraction is configured to read the supplied document, but no language-quality evaluation dataset is included.
@@ -40,16 +40,17 @@
 
 ## Prioritized remaining work
 
-1. Wire and test real Firebase token verification and user-scoped Firestore storage.
-2. Store uploaded files in a private Cloud Storage bucket and implement deletion of objects with the case.
-3. Complete the Android upload/auth/backend flow and verify it on an emulator/device.
+1. Configure a Firebase project and verify Firebase token authentication and Firestore operations with ADC.
+2. Store uploaded files in a private Cloud Storage bucket and delete objects with their case.
+3. Complete Android Firebase sign-in and verify the upload/auth/backend flow on an emulator/device.
 4. Add an ADK runtime only after pinning and testing a compatible package/API.
 5. Evaluate extraction quality and evidence page references against a consented Kannada/English document set.
 6. Deploy to Cloud Run with Secret Manager, least-privilege IAM, and production smoke tests.
 
 ## Verification performed in this workspace
 
-- `python -m pytest tests/test_gemini_integration.py::test_gemini_provider_mock_response tests/test_gemini_integration.py::test_gemini_provider_missing_api_key tests/test_rules.py -vv -s`: **5 passed**. This exercises mock Gemini request construction, Pydantic output validation, unit conversion, and the 120 sq. ft. rule; it does not call Google's service.
+- Firebase ID-token and Firestore repository unit tests are included; neither has been tested against a live Firebase project.
+- Focused backend suite: **15 passed, 1 skipped**. It covers Firebase auth/config, Firestore repository scoping, Gemini mock extraction, discrepancy rules, PDF reports, and state/fee adapters. No Firebase project or Gemini API was contacted.
 - Full backend suite: **not verified**. The run stalled in the existing FastAPI `TestClient` at `tests/test_api.py::test_health`; a focused API deletion run also stalled at test execution. The installed stack reports Python 3.14.4, pytest 9.1.1, and a Starlette/httpx deprecation warning. Investigate this runtime compatibility before relying on API integration results.
 - Android `gradlew.bat testDebugUnitTest`: **BUILD SUCCESSFUL** (Gradle reports test tasks up to date; no failure reported).
 - Android `gradlew.bat assembleDebug`: **BUILD SUCCESSFUL**; APK assembled under `android-app/app/build/outputs/apk/debug/`.
