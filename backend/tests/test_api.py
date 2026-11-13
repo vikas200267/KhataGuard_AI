@@ -44,8 +44,13 @@ def test_demo_analysis_and_findings(client):
 
 def test_case_deletion(client):
     case_id = create_case(client)
+    document = upload_doc(client, case_id, "private.pdf").json()
+    from pathlib import Path
+    stored_path = Path(document["source_uri"])
+    assert stored_path.exists()
     deleted = client.delete(f"/api/v1/cases/{case_id}")
     assert deleted.status_code == 200
+    assert not stored_path.exists()
 
     missing = client.get(f"/api/v1/cases/{case_id}")
     assert missing.status_code == 404

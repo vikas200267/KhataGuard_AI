@@ -1,16 +1,20 @@
-# API
+# API specification (v1)
 
-Base URL: `http://localhost:8000`
+Base path: `/api/v1`. Local/demo requests use `DEMO_MODE=true` and synthetic fixtures. When demo mode is disabled, this repository currently accepts only developer tokens in the form `Bearer test-<username>`; Firebase ID tokens are not yet verified.
 
-- `GET /health`
-- `GET /api/v1/states`
-- `GET /api/v1/document-types`
-- `POST /api/v1/cases`
-- `GET /api/v1/cases/{case_id}`
-- `POST /api/v1/cases/{case_id}/documents`
-- `POST /api/v1/cases/{case_id}/analyze`
-- `GET /api/v1/cases/{case_id}/findings`
-- `GET /api/v1/cases/{case_id}/report`
-- `DELETE /api/v1/cases/{case_id}`
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/health` | Health and configured mode |
+| GET | `/api/v1/states` | Supported adapter jurisdictions |
+| GET | `/api/v1/document-types` | Document category list |
+| POST | `/api/v1/cases` | Create a case |
+| GET | `/api/v1/cases` | List current user's cases |
+| GET | `/api/v1/cases/{id}` | Retrieve a case |
+| POST | `/api/v1/cases/{id}/documents` | Upload PDF/JPEG/PNG (configured size limit) |
+| POST | `/api/v1/cases/{id}/analyze` | Extract and compare documents |
+| GET | `/api/v1/cases/{id}/findings` | Retrieve analysis |
+| GET | `/api/v1/cases/{id}/graph` | Retrieve the identity graph |
+| GET | `/api/v1/cases/{id}/report` | Download PDF pre-check report |
+| DELETE | `/api/v1/cases/{id}` | Delete local case and uploaded temp files |
 
-OpenAPI docs are available from FastAPI at `/docs`.
+Analysis is document intelligence only. It does not certify title, query a government registry, or establish fraud. In demo mode extraction uses synthetic fixtures. In live AI mode the backend sends document bytes to Google GenAI when configured; external calls and Firebase integration have not been verified in this workspace.
