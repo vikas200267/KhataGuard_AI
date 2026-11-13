@@ -1,7 +1,8 @@
 package com.swagcoders.khataguard.data.api
 
-import com.swagcoders.khataguard.data.model.CaseSummary
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 
 interface KhataGuardApi {
     @GET("health")
@@ -12,4 +13,7 @@ interface KhataGuardApi {
 
     @GET("api/v1/document-types")
     suspend fun documentTypes(): List<Map<String, String>>
+
+    @POST("api/v1/cases")
+    suspend fun createCase(@Body payload: Map<String, String>): Map<String, Any>
 }
